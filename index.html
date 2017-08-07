@@ -1,0 +1,79 @@
+<!doctype html>
+<html id="visdown" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Visdown - Markdown for Visualisation</title>
+    <meta name="description" content="Create Simple Visualisation Charts with Markdown">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="lib/vega.min.js"></script>
+    <script src="lib/vega-lite.min.js"></script>
+    <script src="lib/vega-embed.min.js"></script>
+    <script src="lib/marked.min.js"></script>
+    <script src="lib/yaml.min.js"></script>
+    
+    <style>
+      #visdown-output {
+        max-width: 1500px;
+        margin: 0 auto;
+      }
+    
+      #visdown-input {
+        display: none;
+      }
+    </style>  
+
+</head>
+<body>
+
+<div id="visdown-input">  
+ 
+```vis
+width: 1200
+height: 700
+data:
+  url: data/lifeExpectPivot.csv
+selection:
+    mouHov:
+      type: single
+      'on': mouseover
+      encodings:
+      - x
+      - y
+      
+mark: 
+    type: line
+    opacity: 0.5
+    interpolate: basis
+encoding:
+    x:
+      type: ordinal
+      field: Year
+    y:
+      type: quantitative
+      field: Expectancy
+    detail:
+      field: Country
+      type: nominal
+    color:
+      value: lightgrey
+      condition:
+        selection: mouHov
+        field: Country
+        type: nominal
+        legend: null
+    size:
+      value: 1
+      condition:
+        selection: mouHov
+        value: 3
+        legend: null
+```
+    
+</div>
+<div id="visdown-output"></div>
+  
+<script src="visdown.js"></script>
+
+</body>
+</html>

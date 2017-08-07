@@ -21,13 +21,34 @@
       #visdown-input {
         display: none;
       }
+
+      body {
+        padding-left: 20px;
+        background: #f8ebdb;
+        font-family: Helvetica;
+      }
+
+      body>p, body>title,  {
+        padding: 20px;
+      }
     </style>  
 
 </head>
 <body>
 
-<div id="visdown-input">  
- 
+<div id="visdown-input"> 
+# Life Expectancy Visualization
+
+The following is data from The World Bank to look at life expectancy over time and by country. The data goes back to 1960 and up to the most current estimates for 2009.
+
+The major dips for some of the countries jumped out at me immediately. A few quick searches suggest that they coincide with war, such as the Bangladesh Liberation War in the 1970s,  
+the Iran-Iraq War in the 1980s, and the Rwanda Civil War in the 1990s. There’s also a smaller dip for Iraq starting in early 2000.
+
+Some countries, such as Seychelles, didn’t have data that went back to 1960. In this case, the line starts where annual data became available.
+
+
+## Life Expectancy by Region
+
 ```vis
 width: 1200
 height: 700
@@ -37,10 +58,23 @@ selection:
     mouHov:
       type: single
       'on': mouseover
-      encodings:
-      - x
-      - y
-      
+    SRegion:
+      type: single
+      fields:
+      - Region
+      bind:
+        input: select
+        options:
+        - East Asia and Pacific
+        - Europe and Central Asia
+        - Latin America and Caribbean
+        - Middle East and North Africa
+        - South Asia
+        - Sub-Saharan Africa
+        - Nill
+      'on': click
+      resolve: global
+          
 mark: 
     type: line
     opacity: 0.5
@@ -52,16 +86,27 @@ encoding:
     y:
       type: quantitative
       field: Expectancy
+    tooltip:
+      field: Country
+      type: nominal
     detail:
       field: Country
       type: nominal
     color:
-      value: lightgrey
+      value: 'rgba(153, 152, 152, 0.3)'
       condition:
-        selection: mouHov
-        field: Country
+        selection: SRegion
+        field: Region
         type: nominal
-        legend: null
+        scale: 
+          range:
+          - red
+          - blue
+          - purple
+          - green
+          - darkblue
+          - darkgreen
+          - brown
     size:
       value: 1
       condition:
@@ -69,7 +114,76 @@ encoding:
         value: 3
         legend: null
 ```
-    
+
+
+
+## Life expectancy By Income
+ 
+```vis
+$schema: https://vega.github.io/schema/vega-lite/v2.json
+width: 1200
+height: 700
+data:
+  url: data/lifeExpectPivot.csv
+selection:
+    mouHov:
+      type: single
+      'on': mouseover
+
+    Sincome:
+      type: single
+      fields:
+      - Income
+      bind:
+        input: select
+        options:
+        - High income
+        - Upper middle income
+        - Lower middle income
+        - Low income
+        - NA
+      'on': click
+      resolve: global
+
+mark: 
+    type: line
+    opacity: 0.5
+    interpolate: basis
+encoding:
+    x:
+      type: ordinal
+      field: Year
+    y:
+      type: quantitative
+      field: Expectancy
+    tooltip:
+      field: Country
+      type: nominal
+    detail:
+      field: Country
+      type: nominal
+    color:
+      value: 'rgba(153, 152, 152, 0.3)'
+      condition:
+        selection: Sincome
+        field: Income
+        type: nominal
+        scale: 
+          range:
+          - red
+          - blue
+          - purple
+          - green
+          - darkblue
+    size:
+      value: 1
+      condition:
+        selection: mouHov
+        value: 4
+        legend: null
+      
+```
+
 </div>
 <div id="visdown-output"></div>
   

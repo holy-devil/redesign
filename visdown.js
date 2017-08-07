@@ -5,7 +5,7 @@ window.onload = function () {
 	var renderer = new marked.Renderer();
 	var counter = 0;
 	var specs = [];
-	var opts = {"mode": "vega-lite", "renderer": "svg" };
+	var opts = {"mode": "vega-lite", "renderer": "svg", "actions": {"export": false, "source": false, "editor": false} };
 
 
 	// Render the ```vis as a div and save the json spec

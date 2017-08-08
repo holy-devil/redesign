@@ -11,6 +11,9 @@
     <script src="lib/vega-embed.min.js"></script>
     <script src="lib/marked.min.js"></script>
     <script src="lib/yaml.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.css">
     
     <style>
       #visdown-output {
@@ -63,8 +66,8 @@ Some countries, such as Seychelles, didn’t have data that went back to 1960. I
 ## Life Expectancy by Region
 
 ```vis
-width: 1200
-height: 700
+width: 1000
+height: 500
 data:
   url: data/lifeExpectPivot.csv
 selection:
@@ -133,9 +136,8 @@ encoding:
 ## Life expectancy By Income
  
 ```vis
-$schema: https://vega.github.io/schema/vega-lite/v2.json
-width: 1200
-height: 700
+width: 1000
+height: 500
 data:
   url: data/lifeExpectPivot.csv
 selection:
@@ -200,15 +202,11 @@ encoding:
 ## Expectancy by Region and Income  
 
 ```vis
-width: 1200
-height: 700
+width: 1000
+height: 500
 data:
   url: data/lifeExpectPivot.csv
-selection:
-    mouHov:
-      type: single
-      'on': mouseover
-     
+selection: 
     Sincome:
       type: single
       fields:
@@ -223,18 +221,32 @@ selection:
         - NA
       'on': click
       resolve: global
-          
+    Slr:
+      type: single
+      fields:
+      - Year
+      bind:
+        input: range
+        min: 1960
+        max: 2015
+        step: 1          
 mark: 
-    type: tick
+    type: circle
     opacity: 0.5
-    tickWidth: 5 
+transform:
+  - filter: datum.Year == Slr_Year 
 encoding:
     x:
       type: nominal
       field: Region
+      axis:
+        labelAngle: 0
     y:
       type: quantitative
       field: Expectancy
+      axis:
+        values:
+        - 0
     tooltip:
       field: Country
       type: nominal
@@ -242,8 +254,6 @@ encoding:
       field: Country
       type: nominal
     color:
-      value: 'rgba(153, 152, 152, 0.3)'
-      condition:
         selection: Sincome
         field: Income
         type: nominal
@@ -256,13 +266,11 @@ encoding:
           - darkblue
     size:
       value: 200
-      condition:
-        selection: mouHov
-        value: 200
 ```
 
 </div>
 <div id="visdown-output"></div>
+<div id="vis-tooltip" class="vg-tooltip"></div>
   
 <script src="visdown.js"></script>
 

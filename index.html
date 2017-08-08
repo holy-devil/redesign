@@ -24,13 +24,26 @@
 
       body {
         padding-left: 20px;
-        background: #f8ebdb;
+        background: #fff;
         font-family: Helvetica;
       }
-
-      body>p, body>title,  {
-        padding: 20px;
+      
+      #visdown-output>p {
+        padding: 20px 0 0 40px;
+        font-size: 14px;
+        color: #655854;
       }
+
+      #visdown-output>h1 {
+        padding: 20px 0 0 40px;
+        color: #756868;
+        } 
+
+      #visdown-output>h2 {
+        padding: 40px 0 0 40px;
+        color: #756868;
+      }
+
     </style>  
 
 </head>
@@ -182,6 +195,70 @@ encoding:
         value: 4
         legend: null
       
+```
+
+## Expectancy by Region and Income  
+
+```vis
+width: 1200
+height: 700
+data:
+  url: data/lifeExpectPivot.csv
+selection:
+    mouHov:
+      type: single
+      'on': mouseover
+     
+    Sincome:
+      type: single
+      fields:
+      - Income
+      bind:
+        input: select
+        options:
+        - High income
+        - Upper middle income
+        - Lower middle income
+        - Low income
+        - NA
+      'on': click
+      resolve: global
+          
+mark: 
+    type: tick
+    opacity: 0.5
+    tickWidth: 5 
+encoding:
+    x:
+      type: nominal
+      field: Region
+    y:
+      type: quantitative
+      field: Expectancy
+    tooltip:
+      field: Country
+      type: nominal
+    detail:
+      field: Country
+      type: nominal
+    color:
+      value: 'rgba(153, 152, 152, 0.3)'
+      condition:
+        selection: Sincome
+        field: Income
+        type: nominal
+        scale: 
+          range:
+          - red
+          - blue
+          - purple
+          - green
+          - darkblue
+    size:
+      value: 200
+      condition:
+        selection: mouHov
+        value: 200
 ```
 
 </div>

@@ -11,9 +11,6 @@
     <script src="lib/vega-embed.min.js"></script>
     <script src="lib/marked.min.js"></script>
     <script src="lib/yaml.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.css">
     
     <style>
       #visdown-output {
@@ -244,9 +241,6 @@ encoding:
     y:
       type: quantitative
       field: Expectancy
-      axis:
-        values:
-        - 0
     tooltip:
       field: Country
       type: nominal
@@ -270,7 +264,6 @@ encoding:
 
 </div>
 <div id="visdown-output"></div>
-<div id="vis-tooltip" class="vg-tooltip"></div>
   
 <script src="visdown.js"></script>
 

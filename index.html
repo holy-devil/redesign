@@ -27,46 +27,55 @@
         background: #fff;
         font-family: Helvetica;
       }
+      h1 {
+        font-family:'Libre Baskerville', serif;
+        text-align: center;
+        margin-top: 100px;
+        font-size: 50px;
+      }
+
+      #briefIntro{
+        font-family: Helvetica;
+        font-family:'Libre Baskerville', serif;
+        margin: 80px 250px 150px;
+      }
       
       #visdown-output>p {
         padding: 20px 0 0 40px;
         font-size: 14px;
         color: #655854;
+        margin:0px 150px 50px;
       }
 
       #visdown-output>h1 {
         padding: 20px 0 0 40px;
-        color: #756868;
+        color: #aee6ed;
         } 
 
       #visdown-output>h2 {
         padding: 40px 0 0 40px;
-        color: #756868;
+        color: #aee6ed;
       }
 
     </style>  
 
 </head>
 <body>
+<h1>Growing Lives</h1>
+<p id="briefIntro">The following is data from The World Bank to look at life expectancy over time and by country. The data goes back to 1960 and up to the most current estimates for 2009. <br><br>
+
+There are some major dips for some of the countries which are very evident. A few quick searches suggest that they coincide with war, such as the Bangladesh Liberation War in the 1970s, the Iran-Iraq War in the 1980s, and the Rwanda Civil War in the 1990s. There’s also a smaller dip for Iraq starting in early 2000.<br><br>
+
+Some countries, such as Seychelles, didn’t have data that went back to 1960. In this case, the line starts where annual data became available.</p>
 
 <div id="visdown-input"> 
-# How has our Life Expectancy Progressed ?
-
-The following is data from The World Bank to look at life expectancy over time and by country. The data goes back to 1960 and up to the most current estimates for 2009.
-
-The major dips for some of the countries jumped out at me immediately. A few quick searches suggest that they coincide with war, such as the Bangladesh Liberation War in the 1970s,  
-the Iran-Iraq War in the 1980s, and the Rwanda Civil War in the 1990s. There’s also a smaller dip for Iraq starting in early 2000.
-
-Some countries, such as Seychelles, didn’t have data that went back to 1960. In this case, the line starts where annual data became available.
-
-
 ## Life Expectancy by Region
 
 ```vis
-width: 1000
+width: 1400
 height: 500
 data:
-  url: data/lifeExpectPivot.csv
+  url: data/LifeExpectancyNoNill.csv
 selection:
     mouHov:
       type: single
@@ -84,7 +93,6 @@ selection:
         - Middle East and North Africa
         - South Asia
         - Sub-Saharan Africa
-        - Nill
       'on': click
       resolve: global
           
@@ -96,9 +104,22 @@ encoding:
     x:
       type: ordinal
       field: Year
+      axis:
+        title: "Timeline"
+        offset: 5
+        ticks: false
+        domain: false
     y:
       type: quantitative
       field: Expectancy
+      axis:
+        title: "Life Expectancy (years)"
+        offset: 5
+        ticks: false
+        domain: false
+      grid:
+        gridOpacity: 0.2
+        gridColor: blue
     tooltip:
       field: Country
       type: nominal
@@ -106,25 +127,27 @@ encoding:
       field: Country
       type: nominal
     color:
-      value: 'rgba(153, 152, 152, 0.3)'
+      value: 'rgba(220, 242, 255, 0.8)'
       condition:
         selection: SRegion
         field: Region
         type: nominal
         scale: 
           range:
-          - red
-          - blue
+          - grey
+          - teal
           - purple
-          - green
-          - darkblue
-          - darkgreen
-          - brown
+          - "#ff0000"
+          - blue
+          - indigo
+        legend:
+          orient: "bottom-right"
+          titlePadding: 10
     size:
-      value: 1
+      value: 2
       condition:
         selection: mouHov
-        value: 3
+        value: 2
         legend: null
 ```
 
@@ -165,9 +188,19 @@ encoding:
     x:
       type: ordinal
       field: Year
+      axis:
+        title: "Timeline"
+        offset: 5
+        ticks: false
+        domain: false
     y:
       type: quantitative
       field: Expectancy
+      axis:
+        title: "Life Expectancy (years)"
+        offset: 5
+        ticks: false
+        domain: false
     tooltip:
       field: Country
       type: nominal
@@ -238,9 +271,19 @@ encoding:
       field: Region
       axis:
         labelAngle: 0
+        axis:
+        title: "Regions"
+        offset: 5
+        ticks: false
+        domain: false
     y:
       type: quantitative
       field: Expectancy
+      axis:
+        title: "Life Expectancy (years)"
+        offset: 5
+        ticks: false
+        domain: false
     tooltip:
       field: Country
       type: nominal

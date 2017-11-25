@@ -238,7 +238,7 @@ height: 500
 data:
   url: data/LifeExpectancyNoNill.csv
 selection: 
-    Sincome:
+    Select1:
       type: single
       fields:
       - Income
@@ -251,7 +251,7 @@ selection:
         - Low income
       'on': click
       resolve: global
-    Slr:
+    Select:
       type: single
       fields:
       - Year
@@ -261,10 +261,12 @@ selection:
         max: 2015
         step: 1          
 mark: 
-    type: circle
-    opacity: 0.5
+    type: tick
+    opacity: 0.1
+    thickness: 2
+    bandSize: 10
 transform:
-  - filter: datum.Year == Slr_Year 
+  - filter: datum.Year == Select_Year 
 encoding:
     x:
       type: nominal
@@ -295,10 +297,10 @@ encoding:
         type: nominal
         scale: 
           range:
+          - grey
           - teal
-          - cyan
-          - indigo
           - blue
+          - purple
     size:
       value: 200
 ```

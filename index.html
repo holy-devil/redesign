@@ -15,7 +15,7 @@
     <style>
       #visdown-output {
         max-width: 1500px;
-        margin: 0 auto;
+        margin: 0px 200px 100px;
       }
     
       #visdown-input {
@@ -25,19 +25,17 @@
       body {
         padding-left: 20px;
         background: #fff;
-        font-family: Helvetica;
+        font-family:'Libre Baskerville', serif;
       }
       h1 {
-        font-family:'Libre Baskerville', serif;
+       
         text-align: center;
         margin-top: 100px;
         font-size: 50px;
       }
 
       #briefIntro{
-        font-family: Helvetica;
-        font-family:'Libre Baskerville', serif;
-        margin: 80px 250px 150px;
+        margin: 80px 250px 50px;
       }
       
       #visdown-output>p {
@@ -48,13 +46,19 @@
       }
 
       #visdown-output>h1 {
-        padding: 20px 0 0 40px;
-        color: #aee6ed;
+        padding: 20px 0 0 70px;
+        color: #000000;
+        text-align: center;
         } 
 
       #visdown-output>h2 {
-        padding: 40px 0 0 40px;
-        color: #aee6ed;
+        padding: 50px;
+        color: #000;
+        text-align: center;
+      }
+
+      #vis-1, #vis-2, #vis-3 {
+        margin-bottom: 70px;
       }
 
     </style>  
@@ -72,7 +76,7 @@ Some countries, such as Seychelles, didn’t have data that went back to 1960. I
 ## Life Expectancy by Region
 
 ```vis
-width: 1400
+width: 1000
 height: 500
 data:
   url: data/LifeExpectancyNoNill.csv
@@ -80,7 +84,7 @@ selection:
     mouHov:
       type: single
       'on': mouseover
-    SRegion:
+    Select:
       type: single
       fields:
       - Region
@@ -117,9 +121,7 @@ encoding:
         offset: 5
         ticks: false
         domain: false
-      grid:
-        gridOpacity: 0.2
-        gridColor: blue
+        grid: false
     tooltip:
       field: Country
       type: nominal
@@ -127,9 +129,9 @@ encoding:
       field: Country
       type: nominal
     color:
-      value: 'rgba(220, 242, 255, 0.8)'
+      value: 'rgba(35, 146, 155, 0.1)'
       condition:
-        selection: SRegion
+        selection: Select
         field: Region
         type: nominal
         scale: 
@@ -137,14 +139,14 @@ encoding:
           - grey
           - teal
           - purple
-          - "#ff0000"
+          - cyan
           - blue
           - indigo
         legend:
           orient: "bottom-right"
           titlePadding: 10
     size:
-      value: 2
+      value: 1
       condition:
         selection: mouHov
         value: 2
@@ -159,13 +161,13 @@ encoding:
 width: 1000
 height: 500
 data:
-  url: data/lifeExpectPivot.csv
+  url: data/LifeExpectancyNoNill.csv
 selection:
     mouHov:
       type: single
       'on': mouseover
 
-    Sincome:
+    Select:
       type: single
       fields:
       - Income
@@ -176,7 +178,6 @@ selection:
         - Upper middle income
         - Lower middle income
         - Low income
-        - NA
       'on': click
       resolve: global
 
@@ -208,9 +209,9 @@ encoding:
       field: Country
       type: nominal
     color:
-      value: 'rgba(153, 152, 152, 0.3)'
+      value: 'rgba(35, 146, 155, 0.1)'
       condition:
-        selection: Sincome
+        selection: Select
         field: Income
         type: nominal
         scale: 
@@ -235,7 +236,7 @@ encoding:
 width: 1000
 height: 500
 data:
-  url: data/lifeExpectPivot.csv
+  url: data/LifeExpectancyNoNill.csv
 selection: 
     Sincome:
       type: single
@@ -248,7 +249,6 @@ selection:
         - Upper middle income
         - Lower middle income
         - Low income
-        - NA
       'on': click
       resolve: global
     Slr:
@@ -295,11 +295,10 @@ encoding:
         type: nominal
         scale: 
           range:
-          - red
+          - teal
+          - cyan
+          - indigo
           - blue
-          - purple
-          - green
-          - darkblue
     size:
       value: 200
 ```
